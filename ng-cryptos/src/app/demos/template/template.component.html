@@ -1,0 +1,79 @@
+<p [style.color]="'red'">
+  Template dispalys the model
+  {{data}}
+</p>
+
+<p [style.color]="favColor" [style.backgroundColor]="'pink'">
+ Concatenate strings: {{data + '  > MORE TEXT'}}
+</p>
+
+<p [textContent]="data" [style.color]="'blue'" [style.backgroundColor]="'pink'">
+
+</p>
+
+*********************
+
+<div>
+  <ul>
+    <li *ngFor="let coin of coins">
+    {{coin.symbol}} => {{coin.price}}
+    </li>
+  </ul>
+</div>
+
+
+<div>
+  =====  Table Model 1=====
+  <div>
+    <!-- name, symbol, price-->
+    <table>
+      <tr [style.color]="'blue'" [style.backgroundColor]="'pink'">
+
+
+
+      </tr>
+      <tr >
+        <th [style.color]="'blue'" [style.backgroundColor]="'pink'">Name</th>
+        <td *ngFor="let coin of coins">
+          {{coin.name}}</td>
+      </tr>
+
+      <tr>
+        <th [style.color]="'blue'" [style.backgroundColor]="'pink'">Symbol</th>
+        <td *ngFor="let coin of coins">
+        {{coin.symbol}}</td>
+      </tr>
+      <tr >
+        <th [style.color]="'blue'" [style.backgroundColor]="'pink'">Price</th>
+        <td *ngFor="let coin of coins">
+          {{coin.price}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+<div>
+  =====  Table Model 2=====
+  <div style="text-align:center">
+    <!-- name, symbol, price-->
+
+    <table>
+      <tr [style.color]="'blue'" [style.backgroundColor]="'pink'">
+        <th>Name</th>
+        <th>Symbol</th>
+        <th>Price</th>
+      </tr>
+      <tr *ngFor="let coin of coins">
+
+        <td >{{coin.name}}</td>
+
+
+        <td>{{coin.symbol}}</td>
+
+        <td>{{coin.price}}</td>
+      </tr>
+
+    </table>
+  </div>
+</div>

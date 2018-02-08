@@ -1,0 +1,18 @@
+<p>
+  attributes works!
+  <button [disabled]="isDisabled">Click</button>
+  <button (click)="isDisabled = !isDisabled">Toggle my button</button>
+  <button (click)="toggle()">Toggle</button>
+
+  <input name="data" #dataElt > ::: {{dataElt.value}} <!--# c pour donner un nom-->
+  <input name="data1" #dataElt1 (keyup)="nop()" > => {{dataElt1.value}}
+
+  <img src="assets/Burger.png" width="300" alt="burger" />
+
+</p>
+
+<div>
+  A burger costs : {{burgerService.getPrice()}}
+  and steak Weight is {{burgerService.steakService.getWeight()}}
+  and the bun Height is {{height}}
+</div>

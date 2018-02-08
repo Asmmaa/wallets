@@ -1,0 +1,87 @@
+<p>
+  <!--money : ${{money}}-->
+
+</p>
+
+
+<p>
+
+  More money :
+  <input type="number" #amount>
+  <button (click)="deposit(amount.value)">deposit</button>
+
+
+</p>
+
+
+===== Buy othercryptos  ======
+
+Symbol: <input #symb>
+
+Quantity <input type="number" #amount2>
+<p>
+  <button (click)="buy(amount2.value, symb.value)">Buy</button>
+</p>
+
+
+===== Order  ======
+
+<p>
+  <button (click)="wallet.orderDollar()">Order</button>
+</p>
+
+
+===== Sell cryptos  ======
+
+Symbol: <input #symb3>
+
+Quantity <input type="number" #amount3>
+<p>
+<p>
+  <button (click)="sell(amount3.value, symb3.value)">sell</button>
+</p>
+
+
+===== Update cryptos  ======
+<p>
+  <button (click)="updatePrices()">Update</button>
+</p>
+
+
+===== Table  ======
+<div>
+  <div style="text-align:center">
+    <!-- name, symbol, price-->
+
+    <table>
+      <tr>
+
+        <th>Symbol</th>
+        <th>Price</th>
+        <th>Value</th>
+      </tr>
+      <tr *ngFor="let coin of wallet.lines">
+
+
+        <td [style.color]=getColor(coin.symbol)>{{coin.symbol}}</td>
+
+        <td>{{coin.quantity}}</td>
+        <td>{{coin.value}}</td>
+      </tr>
+
+
+    </table>
+
+    <table>
+      <tr>
+
+        <th>Total</th>
+        <th>{{wallet.totalDollar()}}</th>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+
+

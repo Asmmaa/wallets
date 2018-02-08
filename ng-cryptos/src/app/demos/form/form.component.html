@@ -1,0 +1,30 @@
+<p>
+  form works!
+</p>
+
+<form>
+
+  Wallet name: <input placeholder="yolo or not" name="name" [(ngModel)]=formModel.name>
+  <!--ngmodel = onkeyup, bidirectionnel-->
+
+
+  Wallet limit: <input placeholder="Enter Limit" type="number" name="limit" [(ngModel)]=formModel.limit>
+
+
+  <p>
+    Limit = {{isLimit()}}
+  </p>
+
+  Enter your Level :
+  <select [(ngModel)]="formModel.level" name="level">
+    <!--<option *ngFor="let l of levels ; let i=index;" value="{{i}}">{{ l }} - {{ i }} -</option>-->
+    <option *ngFor="let l of levels" [ngValue]="l">{{ l.text}} -</option>
+
+  </select>
+
+  <button (click)="createNewWallet()" [disabled]="isDisabled()">New Wallet</button>
+
+</form>
+
+
+You have chosen : <strong>{{formModel.level}}</strong>
