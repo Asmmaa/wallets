@@ -5,6 +5,7 @@ import io.pax.cryptos.domain.User;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.sql.SQLException;
@@ -16,12 +17,17 @@ import java.util.List;
 @Path("users") // cryptos/api/users
 @Produces(MediaType.APPLICATION_JSON)
 
-public class UserWS {
 
+    public class UserWS {
     @GET
     public List<User> getUsers() throws SQLException {
         UserDao dao = new UserDao();
         return dao.listUsers();
+    }
+    @GET
+    @Path("{id}") // pathparam
+    public User getUser(@PathParam("id") int userId) throws SQLException {
+        return new UserDao().findUserWithWallet(userId);
     }
 
 

@@ -45,5 +45,8 @@ public class SimpleUser implements User{
     public void setWallets() {this.wallets = wallets;}
 
 
+    public String toString(){
+        return this.wallets.toString();
+    }
 
 }

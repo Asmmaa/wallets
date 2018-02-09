@@ -1,8 +1,7 @@
 package io.pax.cryptos.dao;
 
 
-import io.pax.cryptos.domain.SimpleUser;
-import io.pax.cryptos.domain.User;
+import io.pax.cryptos.domain.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -24,7 +23,7 @@ public class UserDao {
         while (rs.next()) {
             String name = rs.getString("name");
             int id = rs.getInt("id");
-           // List<Wallet> wallets = new ArrayList<>();
+            List<Wallet> wallets = new ArrayList<>();
 
             users.add(new SimpleUser(id, name));
 
@@ -37,6 +36,45 @@ public class UserDao {
         return users;
 
 
+    }
+
+
+    public User findUserWithWallet(int userId) throws SQLException {
+
+        Connection conn = this.connector.getConnection();
+        String query ="SELECT * FROM wallet w RIGHT JOIN user u ON w.user_id=u.id WHERE u.id =?"; // RIGHT JOIN AVoir le tableau mm si w.name = vide
+
+
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, userId);
+        ResultSet rs = stmt.executeQuery();
+
+        User user = null;
+        List<Wallet> wallets = new ArrayList<>();
+
+        while (rs.next()) {
+            String name = rs.getString("u.name");
+            //System.out.println("User Name "+ name);
+            int walletId = rs.getInt("w.id");
+            String walletName = rs.getString("w.name");
+
+            if(walletId>0) {
+
+                Wallet wallet = new SimpleWallet(walletId, walletName);
+                wallets.add(wallet);
+            }
+
+            user= new Fulluser(userId, name, wallets);
+
+        }
+
+        rs.close();
+        stmt.close();
+        conn.close();
+
+
+
+        return user;
     }
 
     public int createUser(String name) throws SQLException {
@@ -177,7 +215,7 @@ public class UserDao {
         //userDao.deleteUser(3);
         //userDao.updateUser(3,"newname");
         //System.out.println(userDao.findByName("A"));
-        userDao.deleteByName("Julien");
+        System.out.println(userDao.findUserWithWallet(2).toString());
 
 
     }

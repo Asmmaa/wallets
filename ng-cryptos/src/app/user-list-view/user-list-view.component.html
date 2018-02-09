@@ -1,3 +1,21 @@
-<p>
-  user-list-view works!
-</p>
+<div  ngif="!selectedUser">
+  <ul>
+    <li *ngFor="let user of users">
+      <a href="#{{user.id}}" (click)="details(user)">{{user.name}}</a>
+
+
+    </li>
+  </ul>
+</div>
+<div  ngif="selectedUser">
+
+  <h2> User details : {{ selectedUser?.name}}</h2>  <!--{{ selectedUser?.name}}-->
+
+  <ul style="font-family:verdana;">
+    <li style ="{display: inline}" [style.color]="'purple'"  [style.text]="'purple'" [style.backgroundColor]="'pink'" *ngFor="let userWallet of selectedUser?.wallets">
+     {{userWallet.name.toString()}}
+
+
+    </li>
+  </ul>
+</div>

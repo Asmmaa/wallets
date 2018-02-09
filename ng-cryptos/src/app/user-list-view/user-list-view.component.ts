@@ -10,6 +10,7 @@ import {User} from "../demos/model/user";
 export class UserListViewComponent implements OnInit {
 
   users:User[];
+  selectedUser: User;
 
   constructor(public dataService: DataService) {
 
@@ -18,7 +19,19 @@ export class UserListViewComponent implements OnInit {
       .then(users => console.log('Users: ', users));
   }
 
+
+
   ngOnInit() {
+
+  }
+
+  details(user: User){
+    this.selectedUser =user;
+    console.log('You selected ', user);
+
+    this.dataService.fetchUserWithWallet(user)
+      .then(fullUser => this.selectedUser = fullUser)
+      .then(console.log);
   }
 
 }

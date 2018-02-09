@@ -16,7 +16,7 @@ public class WalletDao {
     JdbcConnector connector = new JdbcConnector();
 
 
-    public List<Wallet> listWallets() throws SQLException {
+   public List<Wallet> listWallets() throws SQLException {
 
         List<Wallet> wallets = new ArrayList<Wallet>();
         Connection conn = this.connector.getConnection();
@@ -28,6 +28,34 @@ public class WalletDao {
             int id = rs.getInt("id");
 
             wallets.add(new SimpleWallet(id, name));
+
+        }
+
+        rs.close();
+        stmt.close();
+        conn.close();
+
+        return wallets;
+
+    }
+
+    public List<Wallet> listWallets(int user_id) throws SQLException {
+
+        List<Wallet> wallets = new ArrayList<Wallet>();
+
+        String query= "SELECT w.name FROM  wallet w WHERE user_id=?;";
+
+        Connection conn = this.connector.getConnection();
+        ///Statement stmt = conn.createStatement();
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setInt(1, user_id);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            String name = rs.getString("name");
+
+
+            wallets.add(new SimpleWallet(user_id, name));
 
         }
 
@@ -162,7 +190,7 @@ public class WalletDao {
      }
     public static void main(String[] args) throws SQLException { //psvm
         //System.out.println( new WalletDao().listWallets());
-        new WalletDao().createWallet(2, "Cool name");
+       // new WalletDao().createWallet(2, "Cool name");
         WalletDao walletDao = new WalletDao();
         //int id = walletDao.createWallet(2, "name");
         //walletDao.deleteWallet(id);
@@ -170,6 +198,7 @@ public class WalletDao {
         //System.out.println(walletDao.findByName("B"));
         //walletDao.updateWallet(2, "newName");
         //walletDao.deleteAll(10);
+        System.out.println(walletDao.listWallets(6));
 
 
     }
