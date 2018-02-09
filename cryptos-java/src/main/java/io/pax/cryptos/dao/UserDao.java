@@ -1,14 +1,9 @@
 package io.pax.cryptos.dao;
 
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 import io.pax.cryptos.domain.SimpleUser;
 import io.pax.cryptos.domain.User;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,30 +13,11 @@ import java.util.List;
  */
 public class UserDao {
 
-    public DataSource connect() {
-
-
-        DataSource dataSource;
-
-        try {
-            Context context = new InitialContext();
-            dataSource = (DataSource) context.lookup("java:/cryptos2");
-        } catch (NamingException e) {
-            MysqlDataSource mysqlDataSource = new MysqlDataSource();
-            mysqlDataSource.setUser("root");
-            mysqlDataSource.setPassword("");
-            mysqlDataSource.setServerName("localhost");
-            mysqlDataSource.setDatabaseName("cryptos");
-            mysqlDataSource.setPort(3306);
-            dataSource = mysqlDataSource;
-        }
-
-        return dataSource;
-    }
-
+    JdbcConnector connector = new JdbcConnector();
+   
     public List<User> listUsers() throws SQLException {
         List<User> users = new ArrayList<User>();
-        Connection conn = connect().getConnection();
+        Connection conn = this.connector.getConnection();
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM user");
 
@@ -50,7 +26,7 @@ public class UserDao {
             int id = rs.getInt("id");
            // List<Wallet> wallets = new ArrayList<>();
 
-            users.add((User) new SimpleUser(id, name));
+            users.add(new SimpleUser(id, name));
 
         }
 
@@ -64,16 +40,16 @@ public class UserDao {
     }
 
     public int createUser(String name) throws SQLException {
-
         //most important stuff: never ever string concatenation in JDBC
-        String query = "INSERT INTO user (name) VALUES ?";
+        String query = "INSERT INTO user (name) VALUES (?)";
 
         //System.out.println(query);
 
-        Connection conn = connect().getConnection();
+        Connection conn = this.connector.getConnection();
         PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
         stmt.setString(1, name);
-        int rows = stmt.executeUpdate();
+        //stmt.executeUpdate();
+       int rows = stmt.executeUpdate(); // stmt.executeUpdate(query); le prepare le fait deja
 
 
 
@@ -99,7 +75,7 @@ public class UserDao {
 
         new WalletDao().deleteAll(userId);
 
-        Connection conn = connect().getConnection();
+        Connection conn = this.connector.getConnection();
         ///Statement stmt = conn.createStatement();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setInt(1, userId);
@@ -114,7 +90,7 @@ public class UserDao {
     public List<User> findByName(String extract) throws SQLException {
 
         List<User> users = new ArrayList<User>();
-        Connection conn = connect().getConnection();
+        Connection conn = this.connector.getConnection();
         Statement stmt = conn.createStatement();
         String query = "SELECT * FROM user WHERE name LIKE '"+extract+"%';";
         ResultSet rs = stmt.executeQuery(query);
@@ -137,10 +113,10 @@ public class UserDao {
     public void deleteByName(String exactName) throws SQLException {
 
 
-        Connection conn = connect().getConnection();
+        Connection conn = this.connector.getConnection();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO user (name) VALUES ?", Statement.RETURN_GENERATED_KEYS);
         stmt.setString(1, exactName);
-       int rows = stmt.executeUpdate(); // stmt.executeUpdate(query); le prepare le fait deja
+        int rows = stmt.executeUpdate(); // stmt.executeUpdate(query); le prepare le fait deja
 
         if(rows != 1){
             throw new SQLException("Something wrong happened with : "+ "INSERT INTO user name VALUES ?");
@@ -176,7 +152,7 @@ public class UserDao {
 
         String query = "UPDATE user SET name = ? WHERE  id= ?;";
 
-        Connection conn = connect().getConnection();
+        Connection conn = this.connector.getConnection();
         PreparedStatement stmt = conn.prepareStatement(query);
         stmt.setString(1, newName);
         stmt.setInt(2, userId);
@@ -197,7 +173,7 @@ public class UserDao {
     public static void main(String[] args) throws SQLException { //psvm
 
         UserDao userDao = new UserDao();
-
+        //userDao.createUser("newname");
         //userDao.deleteUser(3);
         //userDao.updateUser(3,"newname");
         //System.out.println(userDao.findByName("A"));

@@ -12,7 +12,7 @@ public class SimpleUser implements User{
     List<Wallet> wallets;
 
     public SimpleUser(int id, String name) { //alt + insert
-      //  this.id= id;
+        this.id= id;
         this.name = name;
        // this.wallets = wallets;
 
