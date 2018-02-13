@@ -13,6 +13,10 @@ public class SimpleWallet implements Wallet{
 
     }
 
+    public SimpleWallet() {
+
+    }
+
     @Override
     public int getId() {
         return id;

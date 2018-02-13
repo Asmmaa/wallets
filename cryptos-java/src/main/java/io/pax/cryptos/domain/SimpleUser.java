@@ -17,6 +17,9 @@ public class SimpleUser implements User{
        // this.wallets = wallets;
 
     }
+    public SimpleUser() {
+
+    }
 
     @Override
     public int getId() {

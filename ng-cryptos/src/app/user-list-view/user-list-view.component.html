@@ -2,8 +2,14 @@
   <ul>
     <li *ngFor="let user of users">
       <a href="#{{user.id}}" (click)="details(user)">{{user.name}}</a>
+      <!--<div  ngif="!selectedWallet">
+      <ul>
+        <li *ngFor="let wallet of wallets">
+      <a href="#{{wallet}}" (click)="details(wallet)">{{wallet.name}}</a>
 
-
+        </li>
+      </ul>
+      </div>-->
     </li>
   </ul>
 </div>
@@ -12,10 +18,36 @@
   <h2> User details : {{ selectedUser?.name}}</h2>  <!--{{ selectedUser?.name}}-->
 
   <ul style="font-family:verdana;">
-    <li style ="{display: inline}" [style.color]="'purple'"  [style.text]="'purple'" [style.backgroundColor]="'pink'" *ngFor="let userWallet of selectedUser?.wallets">
+    <li [style.color]="'purple'"  [style.text]="'purple'" [style.backgroundColor]="'pink'" *ngFor="let userWallet of selectedUser?.wallets">
      {{userWallet.name.toString()}}
 
 
     </li>
   </ul>
+
+<h2> Create new Wallet</h2>
+
+  <form>
+    <input type="text"  name="walletName" [(ngModel)]="createdWallet.name" (click)="createdWallet.name=''">
+    <button (click)="createWallet()" [disabled]="createdWallet.name.length < 2"> Create new Wallet</button>
+
+  </form>
+
+  <form>
+    <button (click)="deleteWallet()" [disabled]="deletedWallet.name.length < 2"> Delete Wallet</button>
+
+  </form>
+
+
+
+<h2> Create new User</h2>
+
+<form>
+  <input type="text"  name="userName" [(ngModel)]="createdUser.name" (click)="createdUser.name=''">
+  <button (click)="createUser()" [disabled]="createdUser.name.length < 2"> Create new User</button>
+
+</form>
+
+
+
 </div>

@@ -13,6 +13,9 @@ public class Fulluser extends  SimpleUser {
         super(id, name);
         this.wallets = wallets;
     }
+    public Fulluser() {
+        super();
+    }
 
     @Override
     public String toString(){

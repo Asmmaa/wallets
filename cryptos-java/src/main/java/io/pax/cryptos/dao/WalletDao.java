@@ -97,6 +97,7 @@ public class WalletDao {
                 return id;
     }
 
+
     public void deleteWallet(int walletId) throws SQLException {
         String query = "DELETE FROM wallet WHERE id=?";
         System.out.println(query);

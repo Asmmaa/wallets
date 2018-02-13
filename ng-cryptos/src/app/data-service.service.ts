@@ -34,7 +34,67 @@ export class DataService {
   })
 
   }
+  createWallet(wallet: Wallet){
+    let url = 'http://localhost:8080/cryptos/api/wallets';
 
+    let dto= { // Data Transfer Object pour Jax-B
+      name: wallet.name,
+      user: wallet.user
+    };
+
+    console.log(dto);
+    return this.http
+      .post(url, dto)
+      .toPromise()
+      .then(data => console.log('Success :)', data))
+     // .catch(e => console.error('Fail :(',e))
+}
+
+  createUser(user: User){
+    let url = 'http://localhost:8080/cryptos/api/users'
+
+    let dto= { // Data Transfer Object pour Jax-B
+      name:user.name,
+    };
+
+    console.log(dto);
+    return this.http
+      .post(url, dto)
+      .toPromise()
+      .then(data => console.log('Success :)', data))
+      .catch(e => console.error('Fail :(',e))
+  }
+
+ /* createUserWallet(wallet: Wallet){
+    let url = 'http://localhost:8080/cryptos/api/wallets';
+
+    let dto= { // Data Transfer Object pour Jax-B
+      name: wallet.name,
+      user: wallet.user
+    };
+
+    console.log(dto);
+    return this.http
+      .post(url, dto)
+      .toPromise()
+      .then(data => console.log('Success :)', data))
+    // .catch(e => console.error('Fail :(',e))
+  }*/
+
+  deleteWallet(wallet: Wallet){
+    let url = 'http://localhost:8080/cryptos/api/users/' + wallet.user.id +'/' + wallet.user;
+    let dto= { // Data Transfer Object pour Jax-B
+      name: wallet.name,
+      user: wallet.user
+    };
+
+    console.log(dto);
+    return this.http
+      .delete(url)
+      .toPromise()
+      .then(data => console.log('Success :)', data))
+    // .catch(e => console.error('Fail :(',e))
+  }
 
 
 }

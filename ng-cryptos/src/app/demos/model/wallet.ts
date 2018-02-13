@@ -1,4 +1,5 @@
 import {PricingService} from "../../pricing.service";
+import {User} from "./user";
 
 export class Line {
 
@@ -11,7 +12,10 @@ export class Line {
 
 export class Wallet {
 
+
+  user?: User; // optionnal
   lines: Line[] = [];
+  name: string;
   pricingService: PricingService;
 
   deposit(dollars: number) {
