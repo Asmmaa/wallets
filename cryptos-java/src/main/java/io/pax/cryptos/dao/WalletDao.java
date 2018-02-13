@@ -1,7 +1,7 @@
 package io.pax.cryptos.dao;
 
 
-import io.pax.cryptos.domain.SimpleWallet;
+import io.pax.cryptos.domain.jdbc.SimpleWallet;
 import io.pax.cryptos.domain.Wallet;
 
 import java.sql.*;

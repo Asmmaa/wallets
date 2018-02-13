@@ -2,6 +2,9 @@ package io.pax.cryptos.dao;
 
 
 import io.pax.cryptos.domain.*;
+import io.pax.cryptos.domain.jdbc.Fulluser;
+import io.pax.cryptos.domain.jdbc.SimpleUser;
+import io.pax.cryptos.domain.jdbc.SimpleWallet;
 
 import java.sql.*;
 import java.util.ArrayList;
