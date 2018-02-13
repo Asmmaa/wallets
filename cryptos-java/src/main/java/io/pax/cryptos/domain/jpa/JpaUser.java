@@ -1,12 +1,9 @@
 package io.pax.cryptos.domain.jpa;
 
 import io.pax.cryptos.domain.User;
-import io.pax.cryptos.domain.Wallet;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,22 +17,26 @@ public class JpaUser implements User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     int id;
     String name;
-    //List<Wallet> wallets = new ArrayList<>();
+
+
+    //gerer les jointures qui vont bien
+    @OneToMany
+    List<JpaWallet> wallets = new ArrayList<>();
 
 
     @Override
     public int getId() {
-        return 0;
+        return id;
     }
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 
     @Override
-    public List<Wallet> getWallets() {
-        return null;
+    public List<JpaWallet> getWallets() {
+        return this.wallets;
     }
 
     public void setId(int id) {
@@ -46,7 +47,9 @@ public class JpaUser implements User {
         this.name = name;
     }
 
-    public void setWallets(List<Wallet> wallets) {
-        //this.wallets = wallets;
+
+    @Override
+    public String toString(){
+        return "Le nom: " + this.getName() + " est associé à l'id: " + this.getId();
     }
 }
