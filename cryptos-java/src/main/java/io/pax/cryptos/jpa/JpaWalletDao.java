@@ -43,7 +43,7 @@ public class JpaWalletDao {
         JpaWalletDao dao = new JpaWalletDao();
         JpaWallet wallet = dao.getWallet(1);
 
-        System.out.println(wallet.toString());
+        System.out.println(wallet.getLines());
 
         dao.connector.close();
     }

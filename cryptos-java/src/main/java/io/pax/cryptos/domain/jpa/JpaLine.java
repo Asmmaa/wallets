@@ -60,6 +60,8 @@ public class JpaLine implements Line {
         return "JpaLine{" +
                 "id=" + id +
                 ", wallet=" + wallet +
+                ", symbol=" + symbol +
+                ", quantity=" + quantity +
                 '}';
     }
 }
