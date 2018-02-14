@@ -6,9 +6,11 @@ package io.pax.cryptos.domain;
 public interface Line {
 
 
-    double getSymbol();
+    String getSymbol();
 
     double getQuantity();
+
+    //JpaWallet wallet();
 
 
 }

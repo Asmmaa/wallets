@@ -16,7 +16,7 @@ public class UserJpaDao {
     JpaConnector connector = new JpaConnector();
     
 
-    public User createUser(String name){
+    public JpaUser createUser(String name){
 
         EntityManager em = connector.createEntityManager();
         em.getTransaction().begin();

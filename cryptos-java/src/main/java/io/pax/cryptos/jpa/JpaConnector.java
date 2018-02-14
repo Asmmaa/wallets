@@ -11,7 +11,7 @@ import javax.persistence.Persistence;
  */
 public class JpaConnector {
 
-    EntityManagerFactory factory;
+    static EntityManagerFactory factory;
 
 
     void connect() {
